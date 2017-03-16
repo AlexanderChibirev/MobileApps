@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ToDoList</string>
+    <string name="action_settings">Настройки</string>
+    <string name="status">Статус</string>
+    <string name="date">Дата</string>
+    <string name="description">Описание</string>
+    <string name="title">Загаловок</string>
+</resources>
