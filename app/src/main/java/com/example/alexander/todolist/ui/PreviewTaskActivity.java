@@ -6,8 +6,7 @@ import com.example.alexander.todolist.R;
 
 import org.androidannotations.annotations.EActivity;
 
-
-@EActivity(R.layout.create_task_acrtivity)
-public class CreateTaskActivity extends MvpAppCompatActivity {
+@EActivity(R.layout.add_task_acrtivity)
+public class PreviewTaskActivity extends MvpAppCompatActivity {
 
 }

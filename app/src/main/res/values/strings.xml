@@ -7,4 +7,13 @@
     <string name="title" >Title</string>
     <string name="priority">Приоритет:</string>
     <string name="save">Сохранить</string>
+    <string name="normal">normal</string>
+    <string name="medium">medium</string>
+    <string name="high">high</string>
+
+    <string-array name="priority_array">
+        <item>@string/normal</item>
+        <item>@string/medium</item>
+        <item>@string/high</item>
+    </string-array>
 </resources>

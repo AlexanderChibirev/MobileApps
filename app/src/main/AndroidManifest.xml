@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.CreateTaskActivity_" />
+        <activity android:name=".ui.AddTaskActivity_" />
     </application>
 
 </manifest>
