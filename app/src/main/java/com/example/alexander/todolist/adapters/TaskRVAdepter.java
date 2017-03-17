@@ -36,21 +36,20 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
 
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
-        //Task task = mTasks.get(position);
-        holder.itemTitle.setText("sad");
-        holder.itemDescription.setText("asd");
-        holder.itemDate.setText("asd");
-        holder.itemCheckBox.setChecked(true);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                holder.view.getContext(),
-                R.array.priority_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.itemSpinner.setAdapter(adapter);
+        Task task = mTasks.get(position);
+
+        holder.itemTitle.setText(task.getTitle());
+        holder.itemDescription.setText(task.getDescription());
+        holder.itemDate.setText(task.getTaskCompletionDate());
+        holder.itemCheckBox.setChecked(task.getIsCompleted());
+
+        initAdepterSpinner(holder);
+        holder.itemSpinner.setSelection(task.getPriority());
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return mTasks.size();
     }
 
     @Override
@@ -71,11 +70,18 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
             super(itemView);
             view = itemView;
             itemTitle = (TextView) itemView.findViewById(R.id.itemTitle);
-            itemDescription  = (TextView) itemView.findViewById(R.id.itemDescription);
-            itemDate  = (TextView) itemView.findViewById(R.id.itemDate);
+            itemDescription = (TextView) itemView.findViewById(R.id.itemDescription);
+            itemDate = (TextView) itemView.findViewById(R.id.itemDate);
             itemCheckBox = (CheckBox) itemView.findViewById(R.id.checkBox);
             itemSpinner = (Spinner) itemView.findViewById(spinnerPriority);
         }
     }
 
+    private void initAdepterSpinner(TaskViewHolder holder) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                holder.view.getContext(),
+                R.array.priority_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        holder.itemSpinner.setAdapter(adapter);
+    }
 }

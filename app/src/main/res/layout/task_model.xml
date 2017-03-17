@@ -19,56 +19,69 @@
                 android:id="@+id/itemDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/spinnerPriority"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:background="@android:color/white"
                 android:text="@string/description"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@android:color/black"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_above="@+id/spinnerPriority" />
-
-            <CheckBox
-                android:text="@string/status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                tools:ignore="RelativeOverlap" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinnerPriority"
-                android:layout_marginBottom="21dp"
-                android:layout_above="@+id/checkBox"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:text="@string/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/itemDate"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/spinnerPriority"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/itemTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:background="@android:color/white"
                 android:gravity="center"
                 android:lines="1"
                 android:text="@string/title"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/background_dark"
-                android:layout_alignParentTop="true"
+                android:textColor="@android:color/background_dark" />
+
+            <TextView
+                android:id="@+id/itemDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/checkBox"
+                android:layout_alignEnd="@+id/checkBox"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignRight="@+id/checkBox"
+                android:text="@string/date"
+                android:textColor="@android:color/background_dark" />
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/status"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/itemDescription"
+                android:gravity="center"
+                android:text="@string/priority" />
+
+            <Spinner
+                android:id="@+id/spinnerPriority"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/itemDate"
+                android:layout_marginLeft="36dp"
+                android:layout_marginStart="36dp"
+                android:layout_toEndOf="@+id/textView"
+                android:layout_toRightOf="@+id/textView"
+                android:gravity="center" />
 
         </RelativeLayout>
 

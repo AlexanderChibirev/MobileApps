@@ -20,6 +20,7 @@
         </activity>
 
         <activity android:name=".ui.AddTaskActivity_" />
+        <activity android:name=".ui.PreviewTaskActivity_" />
     </application>
 
 </manifest>

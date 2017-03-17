@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ToDoList</string>
+    <string name="app_name">Список дел</string>
     <string name="action_settings">Настройки</string>
-    <string name="status">Статус</string>
-    <string name="date">Дата</string>
-    <string name="description">Описание</string>
-    <string name="title">Загаловок</string>
+    <string name="status">Завершено</string>
+    <string name="date">Дата:</string>
+    <string name="description">Описание:</string>
+    <string name="title">Загаловок:</string>
+    <string name="high">Высокий</string>
+    <string name="medium">Средний</string>
+    <string name="normal">Нормальный</string>
+    <string name="priority">Приоритет:</string>
+    <string name="save">Сохранить</string>
 </resources>
