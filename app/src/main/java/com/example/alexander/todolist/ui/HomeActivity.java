@@ -91,6 +91,7 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
                 return true;
             }
         });
+        adapter.setOnCheckBoxClickListener(pos -> mHomePresenter.onClickCheckBox());
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));

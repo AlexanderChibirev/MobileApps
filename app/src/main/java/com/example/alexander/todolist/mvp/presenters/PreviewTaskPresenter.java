@@ -16,7 +16,8 @@ public class PreviewTaskPresenter extends MvpPresenter<PreviewTaskView> {
     private Realm mRealm;
 
     public void onClickButtonSaveTask() {
-
+        //TODO::изменять базу данных
+        getViewState().showHomeActivity();
     }
 
     public void initDataSelectedItem(Context baseContext, int itemPos) {

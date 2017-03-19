@@ -39,12 +39,16 @@ public class HomePresenter extends MvpPresenter<HomeView> {
             users.deleteFromRealm(pos); // Delete and remove object directly
         });
 
-       //mRealm.beginTransaction(); TODO::возможно придется добавить после добавления сортировки
-       // removeModel(pos);
-      //  refreshModelsPosition(pos);
-       // mRealm.commitTransaction();
+        //mRealm.beginTransaction(); TODO::возможно придется добавить после добавления сортировки
+        // removeModel(pos);
+        //  refreshModelsPosition(pos);
+        // mRealm.commitTransaction();
         getViewState().hideDeletedData(pos);
         getViewState().showMessage(context.getString(R.string.delete_task) + " №: " + (pos + 1));
+    }
+
+    public void onClickCheckBox() {
+        //TODO изменить checkBox на противоположный и отсортировать базу данных
     }
 
     private void removeModel(int pos) {
@@ -70,4 +74,6 @@ public class HomePresenter extends MvpPresenter<HomeView> {
         mRealm = Realm.getDefaultInstance();
         return getTasks();
     }
+
+
 }

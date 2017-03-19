@@ -65,6 +65,11 @@ public class PreviewTaskActivity extends MvpAppCompatActivity implements Preview
         mPreviewTaskPresenter.initDataSelectedItem(getBaseContext(), mItemPos);
     }
 
+    @Override
+    public void showHomeActivity() {
+        this.finish();
+    }
+
     void initButtonSaveTask() {
         mButtonSaveTask.setText("Изменить");
         mButtonSaveTask.setOnClickListener((button) -> mPreviewTaskPresenter.onClickButtonSaveTask());
