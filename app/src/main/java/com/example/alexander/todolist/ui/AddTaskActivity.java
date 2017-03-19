@@ -21,22 +21,22 @@ import org.androidannotations.annotations.ViewById;
 public class AddTaskActivity extends MvpAppCompatActivity implements AddTaskView {
 
     @InjectPresenter
-    AddTaskPresenter addTaskPresenter;
+    AddTaskPresenter mAddTaskPresenter;
 
     @ViewById(R.id.editTextDate)
-    EditText date;
+    EditText mDate;
 
     @ViewById(R.id.editTextDescription)
-    EditText description;
+    EditText mDescription;
 
     @ViewById(R.id.editTextTitle)
-    EditText title;
+    EditText mTitle;
 
     @ViewById(R.id.spinnerPriority)
-    Spinner priority;
+    Spinner mPriority;
 
     @ViewById(R.id.buttonSaveTask)
-    Button buttonSaveTask;
+    Button mButtonSaveTask;
 
 
     @AfterViews
@@ -45,29 +45,24 @@ public class AddTaskActivity extends MvpAppCompatActivity implements AddTaskView
         initButtonListener();
     }
 
+    @Override
+    public void closeAddTaskActivity() {
+        this.finish();
+    }
+
     private void initButtonListener() {
-        buttonSaveTask.setOnClickListener(
-                (button) -> addTaskPresenter.onClickButtonSaveTask(
-                        date.getText().toString(),
-                        description.getText().toString(),
-                        title.getText().toString(),
-                        priority.getSelectedItemPosition()));
+        mButtonSaveTask.setOnClickListener(
+                (button) -> mAddTaskPresenter.onClickButtonSaveTask(
+                        mDate.getText().toString(),
+                        mDescription.getText().toString(),
+                        mTitle.getText().toString(),
+                        mPriority.getSelectedItemPosition()));
     }
 
     private void initSpinnerPriority() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.priority_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        priority.setAdapter(adapter);
-    }
-
-    @Override
-    public void showHomeActivity() {
-        closeAddTaskActivity();
-        HomeActivity_.intent(this).start();
-    }
-
-    private void closeAddTaskActivity() {
-        this.finish();
+        mPriority.setAdapter(adapter);
     }
 }

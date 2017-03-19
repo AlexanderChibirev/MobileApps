@@ -9,11 +9,18 @@ import com.example.alexander.todolist.adapters.TaskRVAdepter;
 @StateStrategyType(AddToEndSingleStrategy.class)
 public interface HomeView extends MvpView {
 
+    @StateStrategyType(OneExecutionStateStrategy.class)
     void showMessage(String message);
 
     @StateStrategyType(OneExecutionStateStrategy.class)
     void showAddTaskActivity();
 
     @StateStrategyType(OneExecutionStateStrategy.class)
+    void showPreviewActivity(int itemPos);
+
+    @StateStrategyType(OneExecutionStateStrategy.class)
     void initRecyclerView(TaskRVAdepter adapter);
+
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void hideDeletedData(int pos);
 }

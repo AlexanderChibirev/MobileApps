@@ -23,8 +23,9 @@ public class AddTaskPresenter extends MvpPresenter<AddTaskView> {
         task.setPriority(idSelectedItemPosition);
         task.setTaskCompletionDate(date);
         task.setIsCompleted(false);
+        task.setPos(mRealm.where(Task.class).findAll().size());
 
         mRealm.executeTransaction(realm -> realm.copyToRealm(task));
-        getViewState().showHomeActivity();
+        getViewState().closeAddTaskActivity();
     }
 }

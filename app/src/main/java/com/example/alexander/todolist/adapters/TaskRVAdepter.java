@@ -1,12 +1,11 @@
 package com.example.alexander.todolist.adapters;
 
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.alexander.todolist.R;
@@ -15,12 +14,10 @@ import com.example.alexander.todolist.mvp.models.Task;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
-import static com.example.alexander.todolist.R.id.spinnerPriority;
-
 public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHolder> implements RealmChangeListener {
 
-
     private RealmResults<Task> mTasks;
+    private OnItemClickListener mOnItemClickListener;
 
     public TaskRVAdepter(RealmResults<Task> tasks) {
         mTasks = tasks;
@@ -42,9 +39,10 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
         holder.itemDescription.setText(task.getDescription());
         holder.itemDate.setText(task.getTaskCompletionDate());
         holder.itemCheckBox.setChecked(task.getIsCompleted());
+        holder.itemPriority.setText(getPriorityString(holder.view, task));
 
-        initAdepterSpinner(holder);
-        holder.itemSpinner.setSelection(task.getPriority());
+        holder.view.setOnClickListener(view -> mOnItemClickListener.onItemClick(position));
+        holder.view.setOnLongClickListener(view -> mOnItemClickListener.onLongItemClick(position));
     }
 
     @Override
@@ -57,14 +55,19 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
         notifyDataSetChanged();
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mOnItemClickListener = listener;
+    }
+
     class TaskViewHolder extends RecyclerView.ViewHolder {
         TextView itemTitle;
         TextView itemDescription;
         TextView itemDate;
+        TextView itemPriority;
 
         View view;
         CheckBox itemCheckBox;
-        Spinner itemSpinner;
+
 
         TaskViewHolder(View itemView) {
             super(itemView);
@@ -73,15 +76,13 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
             itemDescription = (TextView) itemView.findViewById(R.id.itemDescription);
             itemDate = (TextView) itemView.findViewById(R.id.itemDate);
             itemCheckBox = (CheckBox) itemView.findViewById(R.id.checkBox);
-            itemSpinner = (Spinner) itemView.findViewById(spinnerPriority);
+            itemPriority = (TextView) itemView.findViewById(R.id.itemPriority);
         }
     }
 
-    private void initAdepterSpinner(TaskViewHolder holder) {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                holder.view.getContext(),
-                R.array.priority_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.itemSpinner.setAdapter(adapter);
+    private String getPriorityString(View view, Task task) {
+        Resources res = view.getResources();
+        String[] priorities = res.getStringArray(R.array.priority_array);
+        return res.getString(R.string.priority) + priorities[task.getPriority()];
     }
 }

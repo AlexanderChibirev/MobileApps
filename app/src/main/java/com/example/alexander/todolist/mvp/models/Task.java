@@ -20,6 +20,7 @@ public class Task extends RealmObject {
     private Boolean mIsCompleted = false;
 
 
+    private int mPos;
     private int mPriority = 0;
 
     public int getPriority() {
@@ -64,5 +65,13 @@ public class Task extends RealmObject {
 
     public void setTitle(@NonNull String title) {
         mTitle = title;
+    }
+
+    public int getPos() {
+        return mPos;
+    }
+
+    public void setPos(int pos) {
+        mPos = pos;
     }
 }

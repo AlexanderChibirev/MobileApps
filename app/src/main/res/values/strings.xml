@@ -2,10 +2,10 @@
     <string name="app_name">ToDoList</string>
     <string name="action_settings">Settings</string>
     <string name="status">Completed</string>
-    <string name="date">Date:</string>
-    <string name="description">Description:</string>
-    <string name="title">Title</string>
-    <string name="priority">Priority:</string>
+    <string name="date">Date: </string>
+    <string name="description">Description: </string>
+    <string name="title">"Title: "</string>
+    <string name="priority">Priority: </string>
     <string name="save">Save</string>
     <string name="normal">normal</string>
     <string name="medium">medium</string>
@@ -16,4 +16,8 @@
         <item>@string/medium</item>
         <item>@string/high</item>
     </string-array>
+    <string name="overflow">Overflow</string>
+    <string name="change_task">change task</string>
+    <string name="delete_task">delete task</string>
+
 </resources>

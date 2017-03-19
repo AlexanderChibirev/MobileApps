@@ -60,4 +60,7 @@ dependencies {
     compile 'com.arello-mobile:moxy-android:1.4.6'
     provided 'com.arello-mobile:moxy-compiler:1.4.6'
     compile 'com.arello-mobile:moxy-app-compat:1.4.6'
+
+    //fab
+    compile 'com.melnykov:floatingactionbutton:1.3.0'
 }

@@ -1,6 +1,5 @@
 package com.example.alexander.todolist.ui;
 
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,11 +10,13 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.alexander.todolist.R;
+import com.example.alexander.todolist.adapters.OnItemClickListener;
 import com.example.alexander.todolist.adapters.TaskRVAdepter;
 import com.example.alexander.todolist.mvp.presenters.HomePresenter;
 import com.example.alexander.todolist.mvp.views.HomeView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
@@ -23,23 +24,19 @@ import org.androidannotations.annotations.ViewById;
 public class HomeActivity extends MvpAppCompatActivity implements HomeView {
 
     @InjectPresenter
-    HomePresenter homePresenter;
+    HomePresenter mHomePresenter;
 
     @ViewById(R.id.toolbar)
-    Toolbar toolbar;
-
-    @ViewById(R.id.fab)
-    FloatingActionButton fab;
+    Toolbar mToolbar;
 
     @ViewById(R.id.rv)
-    RecyclerView recyclerView;
+    RecyclerView mRecyclerView;
 
 
     @AfterViews
     void init() {
         initToolbar();
-        initListenerFAB();
-        homePresenter.loadDataModels(getBaseContext());
+        mHomePresenter.loadDataModels(getBaseContext());
     }
 
     @Override
@@ -56,38 +53,62 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showAddTaskActivity() {
-        closeHomeActivity();
         AddTaskActivity_.intent(this).start();
     }
 
-    private void closeHomeActivity() {
-        this.finish();
+    @Override
+    public void onResume() {
+        super.onResume();
+        mRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
-    private void initToolbar() {
-        setSupportActionBar(toolbar);
+    @Override
+    public void showPreviewActivity(int itemPos) {
+        PreviewTaskActivity_.intent(this).extra("itemPos", itemPos).start();
     }
 
-    private void initListenerFAB() {
-        fab.setOnClickListener(view -> homePresenter.onClickFab());
+    @Override
+    public void hideDeletedData(int pos) {
+        mRecyclerView.getAdapter().notifyItemRemoved(pos);
     }
 
     @Override
     public void initRecyclerView(TaskRVAdepter adapter) {
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int pos) {
+                mHomePresenter.onClickTask(pos);
+            }
+
+            @Override
+            public boolean onLongItemClick(int pos) {
+                mHomePresenter.onLongClickTask(pos, getBaseContext());
+                return true;
+            }
+        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-        recyclerView.setAdapter(adapter);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        mRecyclerView.setAdapter(adapter);
+    }
+
+    @Click(R.id.fab)
+    void onViewFabClick() {
+        mHomePresenter.onClickFab();
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(mToolbar);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        homePresenter.closeDB();
+        mHomePresenter.closeDB();
     }
 }
