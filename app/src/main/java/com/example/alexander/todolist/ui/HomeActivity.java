@@ -81,7 +81,7 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
 
             @Override
             public boolean onLongItemClick(int pos) {
-                mHomePresenter.onLongClickTask(pos, getBaseContext());
+                mHomePresenter.onLongClickTask(pos);
                 return true;
             }
         });

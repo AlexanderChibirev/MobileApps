@@ -7,13 +7,14 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.example.alexander.todolist.adapters.TaskRVAdepter;
 import com.example.alexander.todolist.mvp.models.Task;
 import com.example.alexander.todolist.mvp.views.HomeView;
+import com.example.alexander.todolist.utils.DataBaseUtils;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import io.realm.Sort;
 
 @InjectViewState
 public class HomePresenter extends MvpPresenter<HomeView> {
+
     private Realm mRealm;
 
     public void onClickFab() {
@@ -33,37 +34,29 @@ public class HomePresenter extends MvpPresenter<HomeView> {
         getViewState().showPreviewActivity(itemPos);
     }
 
-    public void onLongClickTask(int pos, Context context) {
-        final RealmResults<Task> tasks = getSortedTasks();
-        mRealm.executeTransaction(realm -> {
-            tasks.deleteFromRealm(pos);
-        });
+    public void onLongClickTask(int pos) {
+        final RealmResults<Task> tasks = DataBaseUtils.getSortedTasks(mRealm);
+        mRealm.executeTransaction(realm -> tasks.deleteFromRealm(pos));
         getViewState().updateRV();
     }
 
     public void onClickCheckBox(int pos) {
-        final RealmResults<Task> tasks = getSortedTasks();
+        final RealmResults<Task> tasks = DataBaseUtils.getSortedTasks(mRealm);
         mRealm.executeTransaction(realm -> {
             Task task = tasks.get(pos);
             task.setIsCompleted(!task.getIsCompleted());
         });
     }
 
-    private RealmResults<Task> getSortedTasks() {
-        String nameFields[] = {"mIsCompleted", "mPriority", "mTaskCompletionDate"};
-        Sort typeSorting[] = {Sort.ASCENDING, Sort.DESCENDING, Sort.DESCENDING};
-        return mRealm.where(Task.class).findAll().sort(nameFields, typeSorting);
-    }
-
     private RealmResults<Task> initTasksFromDB(Context baseContext) {
         Realm.init(baseContext);
         mRealm = Realm.getDefaultInstance();
-        return getSortedTasks();
+        return DataBaseUtils.getSortedTasks(mRealm);
     }
 
 
     public void notifyDB() {
-        getSortedTasks();
+        DataBaseUtils.getSortedTasks(mRealm);
         getViewState().updateRV();
     }
 }

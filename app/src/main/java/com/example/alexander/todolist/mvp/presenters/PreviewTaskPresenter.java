@@ -7,13 +7,13 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.alexander.todolist.mvp.models.Task;
 import com.example.alexander.todolist.mvp.views.PreviewTaskView;
+import com.example.alexander.todolist.utils.DataBaseUtils;
 import com.example.alexander.todolist.utils.DateUtils;
 
 import java.text.ParseException;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
-import io.realm.Sort;
 
 @InjectViewState
 public class PreviewTaskPresenter extends MvpPresenter<PreviewTaskView> {
@@ -39,19 +39,12 @@ public class PreviewTaskPresenter extends MvpPresenter<PreviewTaskView> {
     }
 
     public void initDataSelectedItem(Context baseContext, int itemPos) {
-        Realm.init(baseContext);
-        RealmResults<Task> tasks = getSortedTasks();
+        RealmResults<Task> tasks = DataBaseUtils.getSortedTasks(mRealm);
         mTaskSelected = tasks.get(itemPos);
         getViewState().showSelectedItem(
                 mTaskSelected.getTitle(),
                 mTaskSelected.getDescription(),
                 mTaskSelected.getPriority(),
                 DateUtils.dateToString(mTaskSelected.getTaskCompletionDate(), baseContext));
-    }
-
-    private RealmResults<Task> getSortedTasks() {
-        String nameFields[] = {"mIsCompleted", "mPriority", "mTaskCompletionDate"};
-        Sort typeSorting[] = {Sort.ASCENDING, Sort.DESCENDING, Sort.DESCENDING};
-        return mRealm.where(Task.class).findAll().sort(nameFields, typeSorting);
     }
 }

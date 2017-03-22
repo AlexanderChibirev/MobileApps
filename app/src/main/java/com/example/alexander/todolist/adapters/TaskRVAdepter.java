@@ -23,6 +23,7 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
     private OnItemClickListener mOnItemClickListener;
     private OnCheckBoxClickListener mOnCheckBoxClickListener;
 
+    @SuppressWarnings("unchecked")
     public TaskRVAdepter(RealmResults<Task> tasks) {
         mTasks = tasks;
         mTasks.addChangeListener(this);
