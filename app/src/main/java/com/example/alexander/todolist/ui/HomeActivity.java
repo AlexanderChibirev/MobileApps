@@ -62,19 +62,19 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
     }
 
     @Override
+    public void updateRV() {
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-        mRecyclerView.getAdapter().notifyDataSetChanged();
+        mHomePresenter.notifyDB();
     }
 
     @Override
     public void showPreviewActivity(int itemPos) {
         PreviewTaskActivity_.intent(this).extra("itemPos", itemPos).start();
-    }
-
-    @Override
-    public void hideDeletedData(int pos) {
-        mRecyclerView.getAdapter().notifyItemRemoved(pos);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
                 return true;
             }
         });
-        adapter.setOnCheckBoxClickListener(pos -> mHomePresenter.onClickCheckBox());
+        adapter.setOnCheckBoxClickListener(pos -> mHomePresenter.onClickCheckBox(pos));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));

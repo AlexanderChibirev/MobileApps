@@ -11,6 +11,7 @@ import com.example.alexander.todolist.mvp.views.HomeView;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 @InjectViewState
 public class HomePresenter extends MvpPresenter<HomeView> {
@@ -34,46 +35,37 @@ public class HomePresenter extends MvpPresenter<HomeView> {
     }
 
     public void onLongClickTask(int pos, Context context) {
-        final RealmResults<Task> users = getTasks();
+        final RealmResults<Task> tasks = getSortedTasks();
         mRealm.executeTransaction(realm -> {
-            users.deleteFromRealm(pos); // Delete and remove object directly
+            tasks.deleteFromRealm(pos);
         });
-
-        //mRealm.beginTransaction(); TODO::возможно придется добавить после добавления сортировки
-        // removeModel(pos);
-        //  refreshModelsPosition(pos);
-        // mRealm.commitTransaction();
-        getViewState().hideDeletedData(pos);
         getViewState().showMessage(context.getString(R.string.delete_task) + " №: " + (pos + 1));
+        getViewState().updateRV();
     }
 
-    public void onClickCheckBox() {
-        //TODO изменить checkBox на противоположный и отсортировать базу данных
+    public void onClickCheckBox(int pos) {
+        final RealmResults<Task> tasks = getSortedTasks();
+        mRealm.executeTransaction(realm -> {
+            Task task = tasks.get(pos);
+            task.setIsCompleted(!task.getIsCompleted());
+        });
     }
 
-    private void removeModel(int pos) {
-        final RealmResults<Task> result = mRealm.where(Task.class)
-                .equalTo("mPos", pos) //mPos field name model
-                .findAll();
-        result.deleteAllFromRealm();
-    }
-
-    private void refreshModelsPosition(int pos) {
-        RealmResults<Task> tasks = getTasks();
-        for (int i = pos; i < tasks.size(); i++) {
-            tasks.get(i).setPos(i - 1);
-        }
-    }
-
-    private RealmResults<Task> getTasks() {
-        return mRealm.where(Task.class).findAll();
+    private RealmResults<Task> getSortedTasks() {
+        return mRealm.where(Task.class).findAll().sort(
+                "mIsCompleted", Sort.ASCENDING,
+                "mPriority", Sort.ASCENDING);
     }
 
     private RealmResults<Task> initTasksFromDB(Context baseContext) {
         Realm.init(baseContext);
         mRealm = Realm.getDefaultInstance();
-        return getTasks();
+        return getSortedTasks();
     }
 
 
+    public void notifyDB() {
+        getSortedTasks();
+        getViewState().updateRV();
+    }
 }

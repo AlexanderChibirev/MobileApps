@@ -14,13 +14,11 @@ public class Task extends RealmObject {
     private String mDescription = "";
 
     @NonNull
-    private String mTaskCompletionDate = "";
+    private String mTaskCompletionDate = ""; //TODO String to date
 
     @NonNull
     private Boolean mIsCompleted = false;
 
-
-    private int mPos;
     private int mPriority = 0;
 
     public int getPriority() {
@@ -67,11 +65,4 @@ public class Task extends RealmObject {
         mTitle = title;
     }
 
-    public int getPos() {
-        return mPos;
-    }
-
-    public void setPos(int pos) {
-        mPos = pos;
-    }
 }

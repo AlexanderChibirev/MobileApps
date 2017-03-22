@@ -13,24 +13,31 @@ import io.realm.RealmResults;
 
 @InjectViewState
 public class PreviewTaskPresenter extends MvpPresenter<PreviewTaskView> {
-    private Realm mRealm;
+    private Realm mRealm = Realm.getDefaultInstance();
+    private Task mTaskSelected;
 
-    public void onClickButtonSaveTask() {
-        //TODO::изменять базу данных
+    public void onClickButtonSaveTask(
+            String date, String description,
+            String title, int selectedItemPosition) {
+
+        mRealm.executeTransaction(realm -> {
+            mTaskSelected.setDescription(description);
+            mTaskSelected.setTaskCompletionDate(date);
+            mTaskSelected.setTitle(title);
+            mTaskSelected.setPriority(selectedItemPosition);
+        });
+
         getViewState().showHomeActivity();
     }
 
     public void initDataSelectedItem(Context baseContext, int itemPos) {
         Realm.init(baseContext);
-        mRealm = Realm.getDefaultInstance();
-        mRealm.beginTransaction();
         RealmResults<Task> tasks = mRealm.where(Task.class).findAll();
-        mRealm.commitTransaction();
-        Task taskSelected = tasks.get(itemPos);
+        mTaskSelected = tasks.get(itemPos);
         getViewState().showSelectedItem(
-                taskSelected.getTitle(),
-                taskSelected.getDescription(),
-                taskSelected.getPriority(),
-                taskSelected.getTaskCompletionDate());
+                mTaskSelected.getTitle(),
+                mTaskSelected.getDescription(),
+                mTaskSelected.getPriority(),
+                mTaskSelected.getTaskCompletionDate());
     }
 }

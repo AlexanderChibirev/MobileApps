@@ -11,11 +11,12 @@ import io.realm.Realm;
 @InjectViewState
 public class AddTaskPresenter extends MvpPresenter<AddTaskView> {
 
+    private Realm mRealm = Realm.getDefaultInstance();
+
+
     public void onClickButtonSaveTask(
             String date, String description,
             String title, int idSelectedItemPosition) {
-
-        Realm mRealm = Realm.getDefaultInstance();
 
         final Task task = new Task();
         task.setTitle(title);
@@ -23,7 +24,6 @@ public class AddTaskPresenter extends MvpPresenter<AddTaskView> {
         task.setPriority(idSelectedItemPosition);
         task.setTaskCompletionDate(date);
         task.setIsCompleted(false);
-        task.setPos(mRealm.where(Task.class).findAll().size());
 
         mRealm.executeTransaction(realm -> realm.copyToRealm(task));
         getViewState().closeAddTaskActivity();

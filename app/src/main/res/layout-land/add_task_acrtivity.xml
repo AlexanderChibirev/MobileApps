@@ -14,7 +14,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="datetime"
+        android:inputType="date"
         android:hint="@string/date"
         android:id="@+id/editTextDate"
         android:layout_above="@+id/buttonSaveTask"

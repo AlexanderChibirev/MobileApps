@@ -72,6 +72,10 @@ public class PreviewTaskActivity extends MvpAppCompatActivity implements Preview
 
     void initButtonSaveTask() {
         mButtonSaveTask.setText("Изменить");
-        mButtonSaveTask.setOnClickListener((button) -> mPreviewTaskPresenter.onClickButtonSaveTask());
+        mButtonSaveTask.setOnClickListener((button) -> mPreviewTaskPresenter.onClickButtonSaveTask(
+                mDate.getText().toString(),
+                mDescription.getText().toString(),
+                mTitle.getText().toString(),
+                mPriority.getSelectedItemPosition()));
     }
 }

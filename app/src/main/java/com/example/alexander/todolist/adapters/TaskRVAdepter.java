@@ -13,6 +13,7 @@ import com.example.alexander.todolist.mvp.models.Task;
 
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 import static com.example.alexander.todolist.R.id.checkBox;
 
@@ -24,6 +25,7 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
 
     public TaskRVAdepter(RealmResults<Task> tasks) {
         mTasks = tasks;
+       // sortingDB();
         mTasks.addChangeListener(this);
     }
 
@@ -37,7 +39,6 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
         Task task = mTasks.get(position);
-
         holder.itemTitle.setText(task.getTitle());
         holder.itemDescription.setText(task.getDescription());
         holder.itemDate.setText(task.getTaskCompletionDate());
@@ -53,8 +54,15 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
     }
 
     @Override
-    public void onChange(Object element) {
+    public void onChange(Object element) {        //добавить сортировку
+        //sortingDB();
         notifyDataSetChanged();
+    }
+
+    private void sortingDB() {
+        mTasks = mTasks.sort(
+                "mIsCompleted", Sort.ASCENDING,
+                "mPriority", Sort.ASCENDING);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
