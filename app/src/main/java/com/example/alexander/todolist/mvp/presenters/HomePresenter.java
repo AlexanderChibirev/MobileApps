@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.example.alexander.todolist.R;
 import com.example.alexander.todolist.adapters.TaskRVAdepter;
 import com.example.alexander.todolist.mvp.models.Task;
 import com.example.alexander.todolist.mvp.views.HomeView;
@@ -39,7 +38,6 @@ public class HomePresenter extends MvpPresenter<HomeView> {
         mRealm.executeTransaction(realm -> {
             tasks.deleteFromRealm(pos);
         });
-        getViewState().showMessage(context.getString(R.string.delete_task) + " №: " + (pos + 1));
         getViewState().updateRV();
     }
 
@@ -52,9 +50,9 @@ public class HomePresenter extends MvpPresenter<HomeView> {
     }
 
     private RealmResults<Task> getSortedTasks() {
-        return mRealm.where(Task.class).findAll().sort(
-                "mIsCompleted", Sort.ASCENDING,
-                "mPriority", Sort.ASCENDING);
+        String nameFields[] = {"mIsCompleted", "mPriority", "mTaskCompletionDate"};
+        Sort typeSorting[] = {Sort.ASCENDING, Sort.DESCENDING, Sort.DESCENDING};
+        return mRealm.where(Task.class).findAll().sort(nameFields, typeSorting);
     }
 
     private RealmResults<Task> initTasksFromDB(Context baseContext) {

@@ -9,9 +9,6 @@ import com.example.alexander.todolist.adapters.TaskRVAdepter;
 public interface HomeView extends MvpView {
 
     @StateStrategyType(OneExecutionStateStrategy.class)
-    void showMessage(String message);
-
-    @StateStrategyType(OneExecutionStateStrategy.class)
     void showAddTaskActivity();
 
     @StateStrategyType(OneExecutionStateStrategy.class)

@@ -4,6 +4,9 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.alexander.todolist.mvp.models.Task;
 import com.example.alexander.todolist.mvp.views.AddTaskView;
+import com.example.alexander.todolist.utils.DateUtils;
+
+import java.text.ParseException;
 
 import io.realm.Realm;
 
@@ -13,7 +16,6 @@ public class AddTaskPresenter extends MvpPresenter<AddTaskView> {
 
     private Realm mRealm = Realm.getDefaultInstance();
 
-
     public void onClickButtonSaveTask(
             String date, String description,
             String title, int idSelectedItemPosition) {
@@ -22,7 +24,11 @@ public class AddTaskPresenter extends MvpPresenter<AddTaskView> {
         task.setTitle(title);
         task.setDescription(description);
         task.setPriority(idSelectedItemPosition);
-        task.setTaskCompletionDate(date);
+        try {
+            task.setTaskCompletionDate(DateUtils.stringToDate(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         task.setIsCompleted(false);
 
         mRealm.executeTransaction(realm -> realm.copyToRealm(task));

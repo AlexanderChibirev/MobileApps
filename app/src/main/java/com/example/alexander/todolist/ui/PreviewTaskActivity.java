@@ -51,7 +51,7 @@ public class PreviewTaskActivity extends MvpAppCompatActivity implements Preview
         initSpinnerPriority(priority);
     }
 
-    private void initSpinnerPriority(int priority) {//TODO::сделать связь с базой данных
+    private void initSpinnerPriority(int priority) {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.priority_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

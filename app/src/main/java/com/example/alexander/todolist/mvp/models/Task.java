@@ -3,6 +3,8 @@ package com.example.alexander.todolist.mvp.models;
 
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 
 public class Task extends RealmObject {
@@ -14,12 +16,12 @@ public class Task extends RealmObject {
     private String mDescription = "";
 
     @NonNull
-    private String mTaskCompletionDate = ""; //TODO String to date
+    private Date mTaskCompletionDate = new Date();
 
     @NonNull
     private Boolean mIsCompleted = false;
 
-    private int mPriority = 0;
+    private int mPriority;
 
     public int getPriority() {
         return mPriority;
@@ -38,14 +40,16 @@ public class Task extends RealmObject {
         mIsCompleted = isCompleted;
     }
 
+
     @NonNull
-    public String getTaskCompletionDate() {
+    public Date getTaskCompletionDate() {
         return mTaskCompletionDate;
     }
 
-    public void setTaskCompletionDate(@NonNull String taskCompletionDate) {
+    public void setTaskCompletionDate(@NonNull Date taskCompletionDate) {
         mTaskCompletionDate = taskCompletionDate;
     }
+
 
     @NonNull
     public String getDescription() {

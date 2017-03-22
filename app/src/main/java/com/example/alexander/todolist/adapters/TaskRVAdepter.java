@@ -10,10 +10,10 @@ import android.widget.TextView;
 
 import com.example.alexander.todolist.R;
 import com.example.alexander.todolist.mvp.models.Task;
+import com.example.alexander.todolist.utils.DateUtils;
 
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
-import io.realm.Sort;
 
 import static com.example.alexander.todolist.R.id.checkBox;
 
@@ -25,7 +25,6 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
 
     public TaskRVAdepter(RealmResults<Task> tasks) {
         mTasks = tasks;
-       // sortingDB();
         mTasks.addChangeListener(this);
     }
 
@@ -41,7 +40,10 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
         Task task = mTasks.get(position);
         holder.itemTitle.setText(task.getTitle());
         holder.itemDescription.setText(task.getDescription());
-        holder.itemDate.setText(task.getTaskCompletionDate());
+        holder.itemDate.setText(
+                DateUtils.dateToString(
+                        task.getTaskCompletionDate(),
+                        holder.view.getContext()));
         holder.itemCheckBox.setChecked(task.getIsCompleted());
         holder.itemPriority.setText(getPriorityString(holder.view, task));
         initListenerForView(holder, position);
@@ -54,15 +56,8 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
     }
 
     @Override
-    public void onChange(Object element) {        //добавить сортировку
-        //sortingDB();
+    public void onChange(Object element) {
         notifyDataSetChanged();
-    }
-
-    private void sortingDB() {
-        mTasks = mTasks.sort(
-                "mIsCompleted", Sort.ASCENDING,
-                "mPriority", Sort.ASCENDING);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

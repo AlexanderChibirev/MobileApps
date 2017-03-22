@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -49,11 +48,6 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         return (id == R.id.action_settings) || super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
