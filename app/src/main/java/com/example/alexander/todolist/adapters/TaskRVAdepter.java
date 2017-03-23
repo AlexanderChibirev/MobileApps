@@ -12,21 +12,18 @@ import com.example.alexander.todolist.R;
 import com.example.alexander.todolist.mvp.models.Task;
 import com.example.alexander.todolist.utils.DateUtils;
 
-import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 
 import static com.example.alexander.todolist.R.id.checkBox;
 
-public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHolder> implements RealmChangeListener {
+public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHolder> {
 
     private RealmResults<Task> mTasks;
     private OnItemClickListener mOnItemClickListener;
     private OnCheckBoxClickListener mOnCheckBoxClickListener;
 
-    @SuppressWarnings("unchecked")
     public TaskRVAdepter(RealmResults<Task> tasks) {
         mTasks = tasks;
-        mTasks.addChangeListener(this);
     }
 
     @Override
@@ -54,11 +51,6 @@ public class TaskRVAdepter extends RecyclerView.Adapter<TaskRVAdepter.TaskViewHo
     @Override
     public int getItemCount() {
         return mTasks.size();
-    }
-
-    @Override
-    public void onChange(Object element) {
-        notifyDataSetChanged();
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

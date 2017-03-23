@@ -12,7 +12,7 @@ import static android.text.format.DateFormat.getDateFormat;
 import static android.text.format.DateFormat.getTimeFormat;
 
 public class DateUtils {
-    private static final String DATE_AND_TIME_PATTERN = "dd/MM/yyyy HH:mm:ss";
+    private static final String DATE_AND_TIME_PATTERN = "dd.MM.yyyy HH:mm";
 
     public static Date stringToDate(String date) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
