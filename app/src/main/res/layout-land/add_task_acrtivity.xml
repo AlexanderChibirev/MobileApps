@@ -11,16 +11,6 @@
         android:hint="@string/title"
         android:id="@+id/editTextTitle" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="datetime"
-        android:hint="@string/date"
-        android:id="@+id/editTextDate"
-        android:layout_above="@+id/buttonSaveTask"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <Button
         android:text="@string/save"
         android:layout_width="match_parent"
@@ -30,6 +20,26 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerPriority"
+        android:gravity="center"
+        android:layout_above="@+id/editTextDate"
+        android:layout_toRightOf="@+id/textViewPriority"
+        android:layout_toEndOf="@+id/textViewPriority" />
+
+    <TextView
+        android:text="@string/priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewPriority"
+        android:gravity="center"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/editTextDate"
+        android:layout_alignTop="@+id/spinnerPriority" />
 
     <EditText
         android:layout_width="match_parent"
@@ -42,22 +52,15 @@
         android:layout_alignParentStart="true"
         android:layout_above="@+id/spinnerPriority" />
 
-    <Spinner
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinnerPriority"
-        android:gravity="center"
-        android:layout_marginLeft="83dp"
-        android:layout_marginStart="83dp"
-        android:layout_above="@+id/editTextDate" />
-
-    <TextView
-        android:text="@string/priority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextDescription"
-        android:id="@+id/textViewPriority"
-        android:gravity="center"
-        android:layout_above="@+id/editTextDate" />
+        android:inputType="date"
+        android:ems="10"
+        android:hint="@string/date"
+        android:id="@+id/editTextDate"
+        android:layout_above="@+id/buttonSaveTask"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout >

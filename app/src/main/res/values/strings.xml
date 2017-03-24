@@ -19,5 +19,6 @@
     <string name="overflow">Overflow</string>
     <string name="change_task">change task</string>
     <string name="delete_task">delete task</string>
+    <string name="time">Time:</string>
 
 </resources>

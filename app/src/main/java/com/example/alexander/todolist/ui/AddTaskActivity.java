@@ -1,6 +1,7 @@
 package com.example.alexander.todolist.ui;
 
 
+import android.app.DatePickerDialog;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +14,11 @@ import com.example.alexander.todolist.mvp.presenters.AddTaskPresenter;
 import com.example.alexander.todolist.mvp.views.AddTaskView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.Calendar;
 
 
 @EActivity(R.layout.add_task_acrtivity)
@@ -45,10 +49,28 @@ public class AddTaskActivity extends MvpAppCompatActivity implements AddTaskView
         initButtonListener();
     }
 
+    @Click(R.id.editTextDate)
+    void onEditTextDateClick() {
+        showDatePicker();
+    }
+
     @Override
     public void closeAddTaskActivity() {
         this.finish();
     }
+
+    private void showDatePicker() {
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (view, year, monthOfYear, dayOfMonth) ->
+                        mDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year),
+                mYear, mMonth, mDay);
+        datePickerDialog.show();
+    }
+
 
     private void initButtonListener() {
         mButtonSaveTask.setOnClickListener(

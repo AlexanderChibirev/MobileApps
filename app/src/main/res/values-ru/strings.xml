@@ -14,4 +14,5 @@
     <string name="overflow">Переполнение</string>
     <string name="delete_task">Удалено дело</string>
     <string name="change_task">Изменено дело</string>
+    <string name="time">Время:</string>
 </resources>
